@@ -172,30 +172,31 @@
 
     </div>
 
-    <div id="rung-modal" class="fixed inset-0 z-50 bg-navy/80 backdrop-blur-xs hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
-        <div id="rung-modal-card" class="bg-white border border-ice rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden flex flex-col my-auto modal-fade-in">
+    <!-- Pinned-Footer Modal Viewport (Guaranteed zero cut-off in iframes) -->
+    <div id="rung-modal" class="fixed inset-0 z-50 bg-navy/80 backdrop-blur-xs hidden items-center justify-center p-2 sm:p-4">
+        <div id="rung-modal-card" class="bg-white border border-ice rounded-2xl max-w-2xl w-full max-h-[95vh] shadow-2xl overflow-hidden flex flex-col my-auto modal-fade-in">
 
-            <!-- Modal Top Header Bar -->
-            <div id="modal-header-bar" class="px-5 sm:px-6 py-4 bg-navy text-white flex items-center justify-between border-b border-white/10 gap-3">
-                <div class="flex items-center space-x-3">
-                    <span id="modal-dot" class="w-3.5 h-3.5 rounded-full bg-rung1 shrink-0"></span>
+            <!-- Modal Top Header Bar (Fixed / shrink-0) -->
+            <div id="modal-header-bar" class="px-4 sm:px-6 py-3 bg-navy text-white flex items-center justify-between border-b border-white/10 gap-3 shrink-0">
+                <div class="flex items-center space-x-2.5 sm:space-x-3">
+                    <span id="modal-dot" class="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-rung1 shrink-0"></span>
                     <div>
-                        <span id="modal-tag" class="text-xs sm:text-sm font-bold uppercase tracking-wider text-ice/80">
+                        <span id="modal-tag" class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-ice/80">
                             Rung 1 · Re-Anchor & Pause
                         </span>
                         <!-- Enlarged, High-Contrast Trigger Display -->
-                        <div class="flex items-center space-x-2 mt-1">
-                            <span class="text-[10px] font-bold uppercase tracking-wider bg-orange text-white px-2 py-0.5 rounded shadow-2xs shrink-0">
+                        <div class="flex items-center space-x-1.5 sm:space-x-2 mt-0.5">
+                            <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider bg-orange text-white px-2 py-0.5 rounded shadow-2xs shrink-0">
                                 Trigger
                             </span>
-                            <span id="modal-trigger" class="text-sm sm:text-base md:text-lg font-bold text-white tracking-tight">
+                            <span id="modal-trigger" class="text-xs sm:text-sm md:text-base font-bold text-white tracking-tight">
                                 First Sign of Volume Spike
                             </span>
                         </div>
                     </div>
                 </div>
                 <button type="button" onclick="closeRungModal()" 
-                        class="text-ice/70 hover:text-white p-2 rounded-lg hover:bg-white/10 transition-colors cursor-pointer shrink-0"
+                        class="text-ice/70 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors cursor-pointer shrink-0"
                         title="Close pop-out">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -203,64 +204,67 @@
                 </button>
             </div>
 
-            <div class="p-5 sm:p-7 space-y-4 sm:space-y-5 overflow-y-auto max-h-[80vh]">
+            <!-- Scrollable Content Viewport (Scrolls comfortably without cutting off footer) -->
+            <div class="p-3.5 sm:p-5 space-y-3 sm:space-y-3.5 overflow-y-auto flex-1 min-h-0">
 
-                <!-- Dedicated High-Visibility Trigger Banner -->
-                <div class="bg-slate-100/80 border-l-4 border-orange p-3 sm:p-3.5 rounded-r-xl border-y border-r border-ice/80 flex items-center justify-between gap-2">
+                <!-- Compact Escalation Trigger Indicator -->
+                <div class="bg-slate-100/90 border-l-4 border-orange p-2.5 sm:p-3 rounded-r-xl border-y border-r border-ice/80 flex items-center justify-between gap-2">
                     <div class="flex items-center space-x-2">
                         <span class="w-2 h-2 rounded-full bg-orange animate-pulse"></span>
-                        <span class="text-xs font-bold uppercase tracking-wider text-slate/60">When to use this rung:</span>
-                        <span id="modal-trigger-body" class="text-xs sm:text-sm md:text-base font-bold text-navy">
+                        <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate/60">When to use:</span>
+                        <span id="modal-trigger-body" class="text-xs sm:text-sm font-bold text-navy">
                             First Sign of Volume Spike
                         </span>
                     </div>
-                    <span class="text-[10px] font-mono text-slate/40 uppercase hidden sm:inline">Escalation Trigger</span>
+                    <span class="text-[10px] font-mono text-slate/40 uppercase hidden sm:inline">Escalation Point</span>
                 </div>
 
-                <!-- Frontline Verbal Shape Script Container (Large Font for Easy Reading) -->
-                <div id="modal-script-box" class="bg-slate-50 border-l-4 border-rung1 p-4 sm:p-5 rounded-r-2xl border-y border-r border-ice/80 shadow-2xs">
-                    <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate/50 mb-2">
+                <!-- Frontline Verbal Shape Script Container (Large Font) -->
+                <div id="modal-script-box" class="bg-slate-50 border-l-4 border-rung1 p-3.5 sm:p-4 rounded-r-2xl border-y border-r border-ice/80 shadow-2xs">
+                    <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-slate/50 mb-1.5">
                         <span>Frontline Verbal Shape:</span>
                         <button type="button" onclick="speakCadence()" id="btn-cadence"
-                                class="text-navy hover:text-trust font-semibold flex items-center space-x-1.5 cursor-pointer bg-white px-3 py-1 rounded-lg border border-ice shadow-2xs transition-all active:scale-95">
+                                class="text-navy hover:text-trust font-semibold flex items-center space-x-1.5 cursor-pointer bg-white px-2.5 py-1 rounded-lg border border-ice shadow-2xs transition-all active:scale-95 text-xs">
                             <svg id="cadence-icon" class="w-3.5 h-3.5 fill-current text-orange" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             <span id="cadence-label">Hear Spoken Cadence</span>
                         </button>
                     </div>
-                    <p id="modal-script" class="text-base sm:text-lg md:text-xl font-semibold text-navy italic leading-relaxed select-text">
+                    <p id="modal-script" class="text-sm sm:text-base md:text-lg font-semibold text-navy italic leading-relaxed select-text">
                         "I can hear how frustrated you are about this delay. I need us to lower our voices so we can solve it together."
                     </p>
                 </div>
 
-                <div class="space-y-3.5 text-sm sm:text-base text-slate/85">
-                    <div class="bg-cream p-4 rounded-xl border border-ice/80 space-y-1">
-                        <div class="text-xs font-bold uppercase tracking-wider text-navy flex items-center space-x-1.5">
-                            <span class="w-2 h-2 rounded-full bg-trust"></span>
+                <div class="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-slate/85">
+                    <div class="bg-cream p-3 sm:p-3.5 rounded-xl border border-ice/80 space-y-0.5">
+                        <div class="text-[11px] font-bold uppercase tracking-wider text-navy flex items-center space-x-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-trust"></span>
                             <span>Why This Works:</span>
                         </div>
-                        <p id="modal-why" class="text-xs sm:text-sm text-slate/85 leading-relaxed pt-0.5">
+                        <p id="modal-why" class="text-xs sm:text-[13px] text-slate/85 leading-relaxed pt-0.5">
                             Acknowledges the underlying emotional driver without taking offense, while establishing the necessary working environment for problem-solving.
                         </p>
                     </div>
 
-                    <div class="bg-slate-50 p-4 rounded-xl border border-ice/80 space-y-1">
-                        <div class="text-xs font-bold uppercase tracking-wider text-navy flex items-center space-x-1.5">
-                            <span class="w-2 h-2 rounded-full bg-orange"></span>
+                    <div class="bg-slate-50 p-3 sm:p-3.5 rounded-xl border border-ice/80 space-y-0.5">
+                        <div class="text-[11px] font-bold uppercase tracking-wider text-navy flex items-center space-x-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-orange"></span>
                             <span>Frontline Rule:</span>
                         </div>
-                        <p id="modal-rule" class="text-xs sm:text-sm text-slate/75 italic leading-relaxed pt-0.5">
+                        <p id="modal-rule" class="text-xs sm:text-[13px] text-slate/75 italic leading-relaxed pt-0.5">
                             Never tell a patient to 'calm down' (it sounds condescending). Instead, pair their distress with your practical operational requirement.
                         </p>
                     </div>
                 </div>
 
-                <div class="pt-2 border-t border-ice/70 flex justify-end">
-                    <button type="button" onclick="closeRungModal()" 
-                            class="bg-navy hover:bg-trust text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-xs">
-                        Close Pop-out
-                    </button>
-                </div>
+            </div>
 
+            <!-- Modal Pinned Bottom Bar (Always visible, never cut off) -->
+            <div class="px-4 py-2.5 sm:px-6 sm:py-3 bg-slate-50 border-t border-ice/80 flex items-center justify-between shrink-0">
+                <span class="text-[11px] font-mono text-slate/40 hidden sm:inline">Press Esc to close</span>
+                <button type="button" onclick="closeRungModal()" 
+                        class="bg-navy hover:bg-trust text-white px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-xs ml-auto">
+                    Close Pop-out
+                </button>
             </div>
 
         </div>
@@ -272,6 +276,9 @@
                 rung: 1,
                 tag: "Rung 1 · Re-Anchor & Pause",
                 trigger: "First Sign of Volume Spike",
+                audioSrc: "./HD_S09_Lindsay_Rung01_ReAnchor.wav",
+                altAudioSrc: "./HD_S09_Lindsay_Rung01_ReAnchor (2).wav",
+                duration: 6.5,
                 colorClass: "text-rung1",
                 borderClass: "border-rung1",
                 dotClass: "bg-rung1",
@@ -284,6 +291,9 @@
                 rung: 2,
                 tag: "Rung 2 · Name the Impact",
                 trigger: "Interrupting / Speaking Over You",
+                audioSrc: "./HD_S09_Lindsay_Rung02_NameImpact.wav",
+                altAudioSrc: null,
+                duration: 7.5,
                 colorClass: "text-rung2",
                 borderClass: "border-rung2",
                 dotClass: "bg-rung2",
@@ -296,6 +306,9 @@
                 rung: 3,
                 tag: "Rung 3 · The Clear Choice",
                 trigger: "Swearing / Direct Hostility",
+                audioSrc: "./HD_S09_Lindsay_Rung03_ClearChoice.wav",
+                altAudioSrc: null,
+                duration: 8.0,
                 colorClass: "text-rung3",
                 borderClass: "border-rung3",
                 dotClass: "bg-rung3",
@@ -308,6 +321,9 @@
                 rung: 4,
                 tag: "Rung 4 · The Safe Exit",
                 trigger: "Continued Abuse / Zero Tolerance",
+                audioSrc: "./HD_S09_Lindsay_Rung04_SafeExit.wav",
+                altAudioSrc: null,
+                duration: 7.0,
                 colorClass: "text-rung4",
                 borderClass: "border-rung4",
                 dotClass: "bg-rung4",
@@ -319,13 +335,17 @@
         };
 
         let currentActiveRung = 1;
+        let currentRungAudio = null;
+        let isAudioPlaying = false;
 
         function openRungModal(id) {
             currentActiveRung = id;
             const data = rungsData[id];
 
+            stopCurrentAudio();
+
             // Update modal header & content
-            document.getElementById('modal-dot').className = `w-3.5 h-3.5 rounded-full ${data.dotClass} shrink-0`;
+            document.getElementById('modal-dot').className = `w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full ${data.dotClass} shrink-0`;
             document.getElementById('modal-tag').innerText = data.tag;
             document.getElementById('modal-trigger').innerText = data.trigger;
             
@@ -338,7 +358,7 @@
 
             // Script box border accent
             const scriptBox = document.getElementById('modal-script-box');
-            scriptBox.className = `bg-slate-50 border-l-4 ${data.borderClass} p-4 sm:p-5 rounded-r-2xl border-y border-r border-ice/80 shadow-2xs`;
+            scriptBox.className = `bg-slate-50 border-l-4 ${data.borderClass} p-3.5 sm:p-4 rounded-r-2xl border-y border-r border-ice/80 shadow-2xs`;
 
             // Reset cadence button state
             resetCadenceUI();
@@ -350,9 +370,7 @@
         }
 
         function closeRungModal() {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-            }
+            stopCurrentAudio();
             resetCadenceUI();
 
             const modal = document.getElementById('rung-modal');
@@ -360,29 +378,88 @@
             modal.classList.remove('flex');
         }
 
+        function stopCurrentAudio() {
+            isAudioPlaying = false;
+            if (currentRungAudio) {
+                currentRungAudio.pause();
+                currentRungAudio.currentTime = 0;
+                currentRungAudio = null;
+            }
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+        }
+
         function speakCadence() {
-            if (!('speechSynthesis' in window)) return;
+            if (isAudioPlaying) {
+                stopCurrentAudio();
+                resetCadenceUI();
+                return;
+            }
 
-            window.speechSynthesis.cancel();
             const data = rungsData[currentActiveRung];
-            const utterance = new SpeechSynthesisUtterance(data.script.replace(/"/g, ''));
-            utterance.rate = 0.86; // Grounded, deliberate clinical pace
-            utterance.pitch = 0.95;
-
-            const voices = window.speechSynthesis.getVoices();
-            const ukVoice = voices.find(v => v.lang.includes('en-GB') || v.name.includes('British'));
-            if (ukVoice) utterance.voice = ukVoice;
+            stopCurrentAudio();
 
             const label = document.getElementById('cadence-label');
             const icon = document.getElementById('cadence-icon');
 
-            label.innerText = "Playing Cadence...";
+            label.innerText = "Playing Spoken Cadence...";
             icon.classList.add('animate-pulse');
+            isAudioPlaying = true;
+
+            function tryPlayAudio(src, onFail) {
+                const sound = new Audio(src);
+                currentRungAudio = sound;
+
+                sound.play().then(() => {
+                    sound.onended = () => {
+                        stopCurrentAudio();
+                        resetCadenceUI();
+                    };
+                }).catch(err => {
+                    if (onFail) {
+                        onFail();
+                    } else {
+                        console.warn("Direct audio not found, falling back to speech synthesis:", err);
+                        fallbackSpeechSynthesis(data.script);
+                    }
+                });
+            }
+
+            // Try primary audioSrc; if 404 and altAudioSrc exists, try alt; otherwise fallback to speech synthesis
+            tryPlayAudio(data.audioSrc, () => {
+                if (data.altAudioSrc) {
+                    tryPlayAudio(data.altAudioSrc, () => {
+                        fallbackSpeechSynthesis(data.script);
+                    });
+                } else {
+                    fallbackSpeechSynthesis(data.script);
+                }
+            });
+        }
+
+        function fallbackSpeechSynthesis(scriptText) {
+            if (!('speechSynthesis' in window)) {
+                resetCadenceUI();
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+            const cleanText = scriptText.replace(/"/g, '');
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.rate = 0.86; // Grounded, deliberate clinical pace
+            utterance.pitch = 0.95;
+
+            const voices = window.speechSynthesis.getVoices();
+            const ukVoice = voices.find(v => v.lang.includes('en-GB') || v.name.includes('British') || v.name.includes('UK'));
+            if (ukVoice) utterance.voice = ukVoice;
 
             utterance.onend = () => {
+                stopCurrentAudio();
                 resetCadenceUI();
             };
             utterance.onerror = () => {
+                stopCurrentAudio();
                 resetCadenceUI();
             };
 
@@ -390,6 +467,7 @@
         }
 
         function resetCadenceUI() {
+            isAudioPlaying = false;
             const label = document.getElementById('cadence-label');
             const icon = document.getElementById('cadence-icon');
             if (label) label.innerText = "Hear Spoken Cadence";
