@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Boundaries Ladder • Primary Care Limit Setting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#0C2340',
+                        deepnavy: '#061426',
+                        trust: '#005EB8',
+                        orange: '#FE5000',
+                        slate: '#333F48',
+                        ice: '#DBE2E9',
+                        cream: '#F8FAFC',
+                        rung1: '#0D9488',
+                        rung2: '#D97706',
+                        rung3: '#EA580C',
+                        rung4: '#DC2626'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        *, *:before, *:after { box-sizing: border-box; }
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::-webkit-scrollbar { display: none; }
+        * { scrollbar-width: none; }
+
+        .ladder-tile {
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .ladder-tile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -4px rgba(12, 35, 64, 0.12);
+        }
+        .ladder-tile:active {
+            transform: translateY(0);
+        }
+
+        .modal-fade-in {
+            animation: modalFadeIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.96) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-transparent text-slate font-sans p-2 sm:p-4 md:p-6 flex flex-col items-center justify-start w-full">
+
+    <div class="w-full max-w-2xl mx-auto flex flex-col space-y-3.5 sm:space-y-4">
+
+        <!-- Top Header Banner (Simplified & Decluttered) -->
+        <div class="bg-navy rounded-2xl px-5 py-3 sm:px-6 sm:py-4 text-white flex items-center justify-between border border-ice/20 shadow-xs">
+            <div>
+                <div class="flex items-center space-x-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-orange animate-pulse"></span>
+                    <h1 class="text-base sm:text-lg font-bold tracking-tight">
+                        The 4-Rung Boundaries Ladder
+                    </h1>
+                </div>
+                <p class="text-xs sm:text-sm text-ice/85 mt-1 leading-snug">
+                    Step up as escalation demands. Click any rung to view the verbal shape and delivery rule.
+                </p>
+            </div>
+        </div>
+
+        <!-- Standalone Large Ladder Buttons (Escalation Order: Rung 4 down to Rung 1) -->
+        <div class="flex flex-col space-y-2.5 sm:space-y-3">
+
+            <button type="button" onclick="openRungModal(4)" id="tile-rung-4"
+                    class="ladder-tile group w-full text-left p-4 sm:p-5 rounded-2xl border-2 border-ice hover:border-rung4 bg-white flex items-center justify-between cursor-pointer shadow-xs">
+                <div class="flex items-center space-x-3.5 sm:space-x-4">
+                    <span class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-red-50 text-rung4 group-hover:bg-rung4 group-hover:text-white font-mono font-bold text-base sm:text-lg flex items-center justify-center transition-colors shrink-0">
+                        4
+                    </span>
+                    <div>
+                        <div class="text-sm sm:text-base font-bold text-navy group-hover:text-rung4 transition-colors">
+                            Rung 4: The Safe Exit
+                        </div>
+                        <div class="text-xs sm:text-sm text-slate/60 mt-0.5">
+                            Zero Tolerance · End the call
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 text-xs font-semibold text-slate/40 group-hover:text-rung4 transition-colors">
+                    <span class="hidden sm:inline">Inspect</span>
+                    <span class="text-base sm:text-lg font-bold">→</span>
+                </div>
+            </button>
+
+            <button type="button" onclick="openRungModal(3)" id="tile-rung-3"
+                    class="ladder-tile group w-full text-left p-4 sm:p-5 rounded-2xl border-2 border-ice hover:border-rung3 bg-white flex items-center justify-between cursor-pointer shadow-xs">
+                <div class="flex items-center space-x-3.5 sm:space-x-4">
+                    <span class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-orange-50 text-rung3 group-hover:bg-rung3 group-hover:text-white font-mono font-bold text-base sm:text-lg flex items-center justify-center transition-colors shrink-0">
+                        3
+                    </span>
+                    <div>
+                        <div class="text-sm sm:text-base font-bold text-navy group-hover:text-rung3 transition-colors">
+                            Rung 3: The Clear Choice
+                        </div>
+                        <div class="text-xs sm:text-sm text-slate/60 mt-0.5">
+                            Consequence · Hand back agency
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 text-xs font-semibold text-slate/40 group-hover:text-rung3 transition-colors">
+                    <span class="hidden sm:inline">Inspect</span>
+                    <span class="text-base sm:text-lg font-bold">→</span>
+                </div>
+            </button>
+
+            <button type="button" onclick="openRungModal(2)" id="tile-rung-2"
+                    class="ladder-tile group w-full text-left p-4 sm:p-5 rounded-2xl border-2 border-ice hover:border-rung2 bg-white flex items-center justify-between cursor-pointer shadow-xs">
+                <div class="flex items-center space-x-3.5 sm:space-x-4">
+                    <span class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-amber-50 text-rung2 group-hover:bg-rung2 group-hover:text-white font-mono font-bold text-base sm:text-lg flex items-center justify-center transition-colors shrink-0">
+                        2
+                    </span>
+                    <div>
+                        <div class="text-sm sm:text-base font-bold text-navy group-hover:text-rung2 transition-colors">
+                            Rung 2: Name the Impact
+                        </div>
+                        <div class="text-xs sm:text-sm text-slate/60 mt-0.5">
+                            Operational barrier · No moralizing
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 text-xs font-semibold text-slate/40 group-hover:text-rung2 transition-colors">
+                    <span class="hidden sm:inline">Inspect</span>
+                    <span class="text-base sm:text-lg font-bold">→</span>
+                </div>
+            </button>
+
+            <button type="button" onclick="openRungModal(1)" id="tile-rung-1"
+                    class="ladder-tile group w-full text-left p-4 sm:p-5 rounded-2xl border-2 border-ice hover:border-rung1 bg-white flex items-center justify-between cursor-pointer shadow-xs">
+                <div class="flex items-center space-x-3.5 sm:space-x-4">
+                    <span class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-teal-50 text-rung1 group-hover:bg-rung1 group-hover:text-white font-mono font-bold text-base sm:text-lg flex items-center justify-center transition-colors shrink-0">
+                        1
+                    </span>
+                    <div>
+                        <div class="text-sm sm:text-base font-bold text-navy group-hover:text-rung1 transition-colors">
+                            Rung 1: Re-Anchor & Pause
+                        </div>
+                        <div class="text-xs sm:text-sm text-slate/60 mt-0.5">
+                            Acknowledge distress · Reset tone
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 text-xs font-semibold text-slate/40 group-hover:text-rung1 transition-colors">
+                    <span class="hidden sm:inline">Inspect</span>
+                    <span class="text-base sm:text-lg font-bold">→</span>
+                </div>
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="rung-modal" class="fixed inset-0 z-50 bg-navy/80 backdrop-blur-xs hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div id="rung-modal-card" class="bg-white border border-ice rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden flex flex-col my-auto modal-fade-in">
+
+            <!-- Modal Top Header Bar -->
+            <div id="modal-header-bar" class="px-5 sm:px-6 py-4 bg-navy text-white flex items-center justify-between border-b border-white/10 gap-3">
+                <div class="flex items-center space-x-3">
+                    <span id="modal-dot" class="w-3.5 h-3.5 rounded-full bg-rung1 shrink-0"></span>
+                    <div>
+                        <span id="modal-tag" class="text-xs sm:text-sm font-bold uppercase tracking-wider text-ice/80">
+                            Rung 1 · Re-Anchor & Pause
+                        </span>
+                        <!-- Enlarged, High-Contrast Trigger Display -->
+                        <div class="flex items-center space-x-2 mt-1">
+                            <span class="text-[10px] font-bold uppercase tracking-wider bg-orange text-white px-2 py-0.5 rounded shadow-2xs shrink-0">
+                                Trigger
+                            </span>
+                            <span id="modal-trigger" class="text-sm sm:text-base md:text-lg font-bold text-white tracking-tight">
+                                First Sign of Volume Spike
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" onclick="closeRungModal()" 
+                        class="text-ice/70 hover:text-white p-2 rounded-lg hover:bg-white/10 transition-colors cursor-pointer shrink-0"
+                        title="Close pop-out">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="p-5 sm:p-7 space-y-4 sm:space-y-5 overflow-y-auto max-h-[80vh]">
+
+                <!-- Dedicated High-Visibility Trigger Banner -->
+                <div class="bg-slate-100/80 border-l-4 border-orange p-3 sm:p-3.5 rounded-r-xl border-y border-r border-ice/80 flex items-center justify-between gap-2">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-orange animate-pulse"></span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate/60">When to use this rung:</span>
+                        <span id="modal-trigger-body" class="text-xs sm:text-sm md:text-base font-bold text-navy">
+                            First Sign of Volume Spike
+                        </span>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate/40 uppercase hidden sm:inline">Escalation Trigger</span>
+                </div>
+
+                <!-- Frontline Verbal Shape Script Container (Large Font for Easy Reading) -->
+                <div id="modal-script-box" class="bg-slate-50 border-l-4 border-rung1 p-4 sm:p-5 rounded-r-2xl border-y border-r border-ice/80 shadow-2xs">
+                    <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate/50 mb-2">
+                        <span>Frontline Verbal Shape:</span>
+                        <button type="button" onclick="speakCadence()" id="btn-cadence"
+                                class="text-navy hover:text-trust font-semibold flex items-center space-x-1.5 cursor-pointer bg-white px-3 py-1 rounded-lg border border-ice shadow-2xs transition-all active:scale-95">
+                            <svg id="cadence-icon" class="w-3.5 h-3.5 fill-current text-orange" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <span id="cadence-label">Hear Spoken Cadence</span>
+                        </button>
+                    </div>
+                    <p id="modal-script" class="text-base sm:text-lg md:text-xl font-semibold text-navy italic leading-relaxed select-text">
+                        "I can hear how frustrated you are about this delay. I need us to lower our voices so we can solve it together."
+                    </p>
+                </div>
+
+                <div class="space-y-3.5 text-sm sm:text-base text-slate/85">
+                    <div class="bg-cream p-4 rounded-xl border border-ice/80 space-y-1">
+                        <div class="text-xs font-bold uppercase tracking-wider text-navy flex items-center space-x-1.5">
+                            <span class="w-2 h-2 rounded-full bg-trust"></span>
+                            <span>Why This Works:</span>
+                        </div>
+                        <p id="modal-why" class="text-xs sm:text-sm text-slate/85 leading-relaxed pt-0.5">
+                            Acknowledges the underlying emotional driver without taking offense, while establishing the necessary working environment for problem-solving.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-ice/80 space-y-1">
+                        <div class="text-xs font-bold uppercase tracking-wider text-navy flex items-center space-x-1.5">
+                            <span class="w-2 h-2 rounded-full bg-orange"></span>
+                            <span>Frontline Rule:</span>
+                        </div>
+                        <p id="modal-rule" class="text-xs sm:text-sm text-slate/75 italic leading-relaxed pt-0.5">
+                            Never tell a patient to 'calm down' (it sounds condescending). Instead, pair their distress with your practical operational requirement.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pt-2 border-t border-ice/70 flex justify-end">
+                    <button type="button" onclick="closeRungModal()" 
+                            class="bg-navy hover:bg-trust text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-xs">
+                        Close Pop-out
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const rungsData = {
+            1: {
+                rung: 1,
+                tag: "Rung 1 · Re-Anchor & Pause",
+                trigger: "First Sign of Volume Spike",
+                colorClass: "text-rung1",
+                borderClass: "border-rung1",
+                dotClass: "bg-rung1",
+                script: "\"I can hear how frustrated you are about this delay. I need us to lower our voices so we can solve it together.\"",
+                why: "Acknowledges the underlying emotional driver without taking offense, while establishing the necessary working environment for problem-solving.",
+                rule: "Never tell a patient to 'calm down' (it sounds condescending). Instead, pair their distress with your practical operational requirement.",
+                stance: "Proportional · De-escalate First"
+            },
+            2: {
+                rung: 2,
+                tag: "Rung 2 · Name the Impact",
+                trigger: "Interrupting / Speaking Over You",
+                colorClass: "text-rung2",
+                borderClass: "border-rung2",
+                dotClass: "bg-rung2",
+                script: "\"When you speak over me and raise your voice, I cannot hear what you need, and it prevents me from checking your clinical notes.\"",
+                why: "Shifts the focus away from lecturing their morals to describing the concrete operational barrier preventing you from helping them.",
+                rule: "Do not say 'You are being rude.' Describe the functional consequence: 'I cannot open your record while you are shouting.'",
+                stance: "Objective · Operational Impact"
+            },
+            3: {
+                rung: 3,
+                tag: "Rung 3 · The Clear Choice",
+                trigger: "Swearing / Direct Hostility",
+                colorClass: "text-rung3",
+                borderClass: "border-rung3",
+                dotClass: "bg-rung3",
+                script: "\"Mr. Davis, I want to help you sort this out today, but if you continue to swear at me, I will have to end this call and reschedule. It is your choice.\"",
+                why: "Hands agency back to the patient. You are not threatening them; you are giving them the power to decide whether the call continues or ends.",
+                rule: "Frame it as their decision ('It is your choice'). This respects adult autonomy while drawing an unmovable safety line.",
+                stance: "Boundary · Hand Back Agency"
+            },
+            4: {
+                rung: 4,
+                tag: "Rung 4 · The Safe Exit",
+                trigger: "Continued Abuse / Zero Tolerance",
+                colorClass: "text-rung4",
+                borderClass: "border-rung4",
+                dotClass: "bg-rung4",
+                script: "\"As I explained, I cannot continue this call while you are shouting. I am hanging up now and noting our record. Someone will write to you.\"",
+                why: "Terminates the consultation safely and decisively without debate, anger, or apology, following NHS Zero Tolerance policy.",
+                rule: "Do not argue or justify at Rung 4. Execute the exit calmly, disconnect the line, and document the encounter immediately.",
+                stance: "Zero Tolerance · Safe Termination"
+            }
+        };
+
+        let currentActiveRung = 1;
+
+        function openRungModal(id) {
+            currentActiveRung = id;
+            const data = rungsData[id];
+
+            // Update modal header & content
+            document.getElementById('modal-dot').className = `w-3.5 h-3.5 rounded-full ${data.dotClass} shrink-0`;
+            document.getElementById('modal-tag').innerText = data.tag;
+            document.getElementById('modal-trigger').innerText = data.trigger;
+            
+            const triggerBody = document.getElementById('modal-trigger-body');
+            if (triggerBody) triggerBody.innerText = data.trigger;
+
+            document.getElementById('modal-script').innerText = data.script;
+            document.getElementById('modal-why').innerText = data.why;
+            document.getElementById('modal-rule').innerText = data.rule;
+
+            // Script box border accent
+            const scriptBox = document.getElementById('modal-script-box');
+            scriptBox.className = `bg-slate-50 border-l-4 ${data.borderClass} p-4 sm:p-5 rounded-r-2xl border-y border-r border-ice/80 shadow-2xs`;
+
+            // Reset cadence button state
+            resetCadenceUI();
+
+            // Display modal
+            const modal = document.getElementById('rung-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeRungModal() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+            resetCadenceUI();
+
+            const modal = document.getElementById('rung-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function speakCadence() {
+            if (!('speechSynthesis' in window)) return;
+
+            window.speechSynthesis.cancel();
+            const data = rungsData[currentActiveRung];
+            const utterance = new SpeechSynthesisUtterance(data.script.replace(/"/g, ''));
+            utterance.rate = 0.86; // Grounded, deliberate clinical pace
+            utterance.pitch = 0.95;
+
+            const voices = window.speechSynthesis.getVoices();
+            const ukVoice = voices.find(v => v.lang.includes('en-GB') || v.name.includes('British'));
+            if (ukVoice) utterance.voice = ukVoice;
+
+            const label = document.getElementById('cadence-label');
+            const icon = document.getElementById('cadence-icon');
+
+            label.innerText = "Playing Cadence...";
+            icon.classList.add('animate-pulse');
+
+            utterance.onend = () => {
+                resetCadenceUI();
+            };
+            utterance.onerror = () => {
+                resetCadenceUI();
+            };
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function resetCadenceUI() {
+            const label = document.getElementById('cadence-label');
+            const icon = document.getElementById('cadence-icon');
+            if (label) label.innerText = "Hear Spoken Cadence";
+            if (icon) icon.classList.remove('animate-pulse');
+        }
+
+        // Close modal on Escape key or backdrop click
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeRungModal();
+            }
+        });
+
+        document.getElementById('rung-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'rung-modal') {
+                closeRungModal();
+            }
+        });
+    </script>
+</body>
+</html>
